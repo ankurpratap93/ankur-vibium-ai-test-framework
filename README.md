@@ -2,7 +2,7 @@
   <img src="artifacts/assets/k11_logo.png" alt="K11 Software Solutions Logo" height="60" style="margin-right:20px;vertical-align:middle;"/>
   <img src="artifacts/assets/vibium-logo.svg" alt="Vibium Logo" height="60" style="margin-right:20px;vertical-align:middle;"/>
   <img src="artifacts/assets/typescript-logo.svg" alt="TypeScript Logo" height="60" style="margin-right:20px;vertical-align:middle;"/>
-  <img src="artifacts/assets/jest-logo.svg" alt="Jest Logo" height="60" style="margin-right:20px;vertical-align:middle;"/>
+  <img src="artifacts/assets/jest.png" alt="Jest Logo" height="60" style="margin-right:20px;vertical-align:middle;"/>
   <img src="artifacts/assets/github-actions-logo.svg" alt="GitHub Actions Logo" height="60" style="vertical-align:middle;"/>
 </p>
 
