@@ -22,7 +22,7 @@ structured reporting, Lighthouse auditing, AI-assisted test generation, and GitH
 - AI agent and MCP server integration for tool-driven browser automation
 - GitHub Actions CI for API and smoke validation with artifact upload
 - GitHub Actions release workflow for showcase bundle packaging
-- MIT licensed and ready for portfolio or LinkedIn showcase use
+- MIT licensed and production-ready
 
 ## Capabilities & Innovations
 
