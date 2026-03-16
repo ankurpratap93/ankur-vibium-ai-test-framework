@@ -16,7 +16,7 @@ structured reporting, Lighthouse auditing, AI-assisted test generation, and GitH
 ## Highlights
 
 - Shared Vibium browser setup with reusable page objects
-- Coverage across smoke, functional, API, DB, devices, E2E, and Lighthouse
+- Coverage across smoke, functional, API, DB, devices, E2E, and performance validation
 - Timestamped HTML and JSON reports in `reports/`
 - AI-assisted test generation with optional OpenAI integration
 - AI agent and MCP server integration for tool-driven browser automation
@@ -224,6 +224,9 @@ Additional runnable demos and agent docs:
 - `scripts/vibium-demo/README.md`
 - `mcp-server/README.md`
 
+## Acknowledgements
+
+This framework was also refined with Codex, used as an AI engineering assistant for implementation, debugging, documentation, and framework acceleration.
 ## License
 
 This project is licensed under the MIT License. See `LICENSE`.
@@ -257,6 +260,8 @@ LinkedIn: [https://www.linkedin.com/in/kavita-jadhav-tech/](https://www.linkedin
     <img src="https://img.shields.io/badge/k11softwaresolutions-00B386?style=for-the-badge&logo=google-chrome&logoColor=white" alt="k11softwaresolutions"/>
   </a>
 </p>
+
+
 
 
 
