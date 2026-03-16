@@ -1,3 +1,7 @@
+/**
+ * AI Agent using Claude (Anthropic) + MCP for browser automation.
+ * Rebuilt by Ankur Pratap — swaps OpenAI for Claude, adds structured reporting.
+ */
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -7,339 +11,203 @@ import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const repoRoot = path.resolve(__dirname, "..");
-const DEFAULT_K11_URL = "https://k11softwaresolutions.com/";
 const agentReportsDir = path.join(repoRoot, "reports", "ai-agent");
 
+// ─── Env loader ──────────────────────────────────────────────────────
 function loadEnvFile() {
   const envPath = path.join(repoRoot, ".env");
-  if (!fs.existsSync(envPath)) {
-    return;
-  }
-
-  const lines = fs.readFileSync(envPath, "utf8").split(/\r?\n/);
-  for (const rawLine of lines) {
+  if (!fs.existsSync(envPath)) return;
+  for (const rawLine of fs.readFileSync(envPath, "utf8").split(/\r?\n/)) {
     const line = rawLine.trim();
-    if (!line || line.startsWith("#")) {
-      continue;
+    if (!line || line.startsWith("#")) continue;
+    const sep = line.indexOf("=");
+    if (sep === -1) continue;
+    const key = line.slice(0, sep).trim();
+    if (!key || process.env[key] !== undefined) continue;
+    let val = line.slice(sep + 1).trim();
+    if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+      val = val.slice(1, -1);
     }
-
-    const separatorIndex = line.indexOf("=");
-    if (separatorIndex === -1) {
-      continue;
-    }
-
-    const key = line.slice(0, separatorIndex).trim();
-    if (!key || process.env[key] !== undefined) {
-      continue;
-    }
-
-    let value = line.slice(separatorIndex + 1).trim();
-    if ((value.startsWith('"') && value.endsWith('"')) || (value.startsWith("'") && value.endsWith("'"))) {
-      value = value.slice(1, -1);
-    }
-
-    process.env[key] = value;
+    process.env[key] = val;
   }
 }
 
-function debugEnabled() {
-  return process.env.K11_DEBUG === "true" || process.env.AGENT_DEBUG === "true";
-}
+loadEnvFile();
 
-function debugLog(...args) {
-  if (debugEnabled()) {
-    console.log("[agent-debug]", ...args);
-  }
-}
+const debugEnabled = process.env.K11_DEBUG === "true" || process.env.AGENT_DEBUG === "true";
+function debugLog(...args) { if (debugEnabled) console.log("[agent-debug]", ...args); }
 
-function extractText(response) {
-  if (response.output_text) {
-    return response.output_text;
-  }
-
-  const texts = [];
-  for (const item of response.output || []) {
-    if (item.type === "message") {
-      for (const content of item.content || []) {
-        if (content.type === "output_text" || content.type === "text") {
-          texts.push(content.text || "");
-        }
-      }
-    }
+// ─── Claude API call ─────────────────────────────────────────────────
+async function callClaude(messages, tools = []) {
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) {
+    console.error("ANTHROPIC_API_KEY not set. Add it to your .env file.");
+    console.error("Get one at: https://console.anthropic.com/");
+    process.exit(1);
   }
 
-  return texts.join("\n").trim();
-}
-
-function normalizeToolOutput(result) {
-  return {
-    isError: !!result.isError,
-    structuredContent: result.structuredContent ?? null,
-    content: (result.content || []).map((item) => ({
-      type: item.type,
-      text: item.type === "text" ? item.text : JSON.stringify(item),
-    })),
+  const model = process.env.CLAUDE_MODEL || "claude-sonnet-4-20250514";
+  const body = {
+    model,
+    max_tokens: 4096,
+    system: `You are an expert QA automation agent. You control a real browser through MCP tools.
+Your job is to accomplish the user's goal by navigating, clicking, typing, and verifying page content.
+Always verify your actions by reading page text or checking URLs after navigation.
+When the goal is achieved, clearly state what you verified and found.`,
+    messages,
   };
-}
 
-async function createResponse(body) {
-  const response = await fetch(process.env.OPENAI_BASE_URL || "https://api.openai.com/v1/responses", {
+  if (tools.length > 0) {
+    body.tools = tools.map(t => ({
+      name: t.name,
+      description: t.description || "",
+      input_schema: t.inputSchema || { type: "object", properties: {} },
+    }));
+  }
+
+  const response = await fetch("https://api.anthropic.com/v1/messages", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
     },
     body: JSON.stringify(body),
   });
 
   if (!response.ok) {
-    throw new Error(`OpenAI request failed: ${response.status} ${await response.text()}`);
+    const err = await response.text();
+    throw new Error(`Claude API error ${response.status}: ${err}`);
   }
 
   return response.json();
 }
 
-function printMissingConfigGuidance() {
-  console.log("OpenAI configuration is missing for the agent demo.");
-  console.log("");
-  console.log("Create a .env file in the repo root based on .env.example and set:");
-  console.log("OPENAI_API_KEY=your_key_here");
-  console.log("OPENAI_MODEL=gpt-4.1-mini");
-  console.log("OPENAI_BASE_URL=https://api.openai.com/v1/responses");
-  console.log("");
-  console.log("Then rerun:");
-  console.log('npm run agent:run -- "Open the K11 homepage and verify the contact page is reachable."');
-}
-
-function sanitizeFileSegment(value) {
-  return value
-    .toLowerCase()
-    .replace(/https?:\/\//g, "")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-+|-+$/g, "")
-    .slice(0, 80) || "agent-run";
-}
-
-function buildTimestamp() {
-  const now = new Date();
-  const pad = (value) => String(value).padStart(2, "0");
-  return `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}_${pad(now.getHours())}-${pad(now.getMinutes())}-${pad(now.getSeconds())}`;
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/\"/g, "&quot;")
-    .replace(/'/g, "&#39;");
-}
-
-function renderHtmlReport(report) {
-  const toolRows = report.toolCalls
-    .map(
-      (toolCall) => `
-        <tr>
-          <td>${escapeHtml(toolCall.step)}</td>
-          <td>${escapeHtml(toolCall.name)}</td>
-          <td><pre>${escapeHtml(JSON.stringify(toolCall.arguments, null, 2))}</pre></td>
-          <td><pre>${escapeHtml(JSON.stringify(toolCall.result, null, 2))}</pre></td>
-        </tr>`,
-    )
-    .join("\n");
-
-  return `<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <title>${escapeHtml(report.name)}</title>
-  <style>
-    body { font-family: Segoe UI, Arial, sans-serif; margin: 24px; color: #1f2937; }
-    h1, h2 { margin-bottom: 8px; }
-    .meta { margin-bottom: 24px; padding: 16px; background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; }
-    .status { display: inline-block; padding: 4px 10px; border-radius: 999px; font-weight: 600; background: ${report.success ? "#dcfce7" : "#fee2e2"}; color: ${report.success ? "#166534" : "#991b1b"}; }
-    pre { white-space: pre-wrap; word-break: break-word; margin: 0; }
-    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
-    th, td { border: 1px solid #e5e7eb; text-align: left; vertical-align: top; padding: 10px; }
-    th { background: #f8fafc; }
-  </style>
-</head>
-<body>
-  <h1>${escapeHtml(report.name)}</h1>
-  <div class="meta">
-    <p><strong>Status:</strong> <span class="status">${report.success ? "passed" : "failed"}</span></p>
-    <p><strong>Goal:</strong> ${escapeHtml(report.goal)}</p>
-    <p><strong>Timestamp:</strong> ${escapeHtml(report.timestamp)}</p>
-    <p><strong>Model:</strong> ${escapeHtml(report.model)}</p>
-  </div>
-
-  <h2>Final Result</h2>
-  <pre>${escapeHtml(report.result)}</pre>
-
-  <h2>Tool Calls</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>Step</th>
-        <th>Tool</th>
-        <th>Arguments</th>
-        <th>Result</th>
-      </tr>
-    </thead>
-    <tbody>
-      ${toolRows || '<tr><td colspan="4">No tool calls recorded.</td></tr>'}
-    </tbody>
-  </table>
-</body>
-</html>`;
-}
-
-function writeAgentReport(report) {
-  fs.mkdirSync(agentReportsDir, { recursive: true });
-  const jsonPath = path.join(agentReportsDir, `${report.name}.json`);
-  const htmlPath = path.join(agentReportsDir, `${report.name}.html`);
-  fs.writeFileSync(jsonPath, `${JSON.stringify(report, null, 2)}\n`, "utf8");
-  fs.writeFileSync(htmlPath, renderHtmlReport(report), "utf8");
-  return { jsonPath, htmlPath };
-}
-
-async function main() {
-  loadEnvFile();
-
-  if (!process.env.OPENAI_API_KEY) {
-    printMissingConfigGuidance();
-    process.exitCode = 0;
-    return;
-  }
-
-  const goal = process.argv.slice(2).join(" ") || `Open ${DEFAULT_K11_URL} and verify the contact page is reachable.`;
-  const timestamp = buildTimestamp();
-  const reportName = `ai-agent-${sanitizeFileSegment(goal)}-${timestamp}`;
-  const toolCalls = [];
+// ─── MCP client setup ────────────────────────────────────────────────
+async function createMcpClient() {
   const transport = new StdioClientTransport({
-    command: process.platform === "win32" ? "npx.cmd" : "npx",
-    args: ["tsx", "mcp-server/vibium-mcp-server.ts"],
-    cwd: repoRoot,
+    command: "npx",
+    args: ["tsx", path.join(repoRoot, "mcp-server", "vibium-mcp-server.ts")],
+    env: { ...process.env },
   });
 
-  const client = new Client({
-    name: "vibium-agent",
-    version: "1.0.0",
-  });
+  const client = new Client({ name: "vibium-agent", version: "2.0.0" }, { capabilities: {} });
+  await client.connect(transport);
+  return client;
+}
 
-  let response;
-  let finalResult = "";
+// ─── Tool execution ──────────────────────────────────────────────────
+async function executeTool(mcpClient, toolName, toolInput) {
+  debugLog(`Calling tool: ${toolName}`, JSON.stringify(toolInput));
+  const result = await mcpClient.callTool({ name: toolName, arguments: toolInput });
+  debugLog(`Tool result:`, JSON.stringify(result).slice(0, 500));
+  return result;
+}
+
+// ─── Report generation ───────────────────────────────────────────────
+function saveReport(goal, actions, status, startTime) {
+  if (!fs.existsSync(agentReportsDir)) fs.mkdirSync(agentReportsDir, { recursive: true });
+  const ts = new Date().toISOString().replace(/[:.]/g, "-");
+  const report = {
+    goal,
+    model: process.env.CLAUDE_MODEL || "claude-sonnet-4-20250514",
+    status,
+    actions,
+    duration: Date.now() - startTime,
+    timestamp: new Date().toISOString(),
+  };
+
+  const jsonPath = path.join(agentReportsDir, `agent-run-${ts}.json`);
+  fs.writeFileSync(jsonPath, JSON.stringify(report, null, 2));
+
+  const htmlPath = path.join(agentReportsDir, `agent-run-${ts}.html`);
+  const actionsHtml = actions.map((a, i) => `
+    <div style="margin:8px 0;padding:12px;background:#f8f9fa;border-radius:8px;border-left:4px solid ${a.error ? '#dc3545' : '#28a745'}">
+      <strong>Step ${i + 1}: ${a.tool}</strong><br/>
+      <code>${JSON.stringify(a.params).slice(0, 200)}</code><br/>
+      <em>${a.resultText?.slice(0, 300) || ''}</em>
+    </div>`).join("");
+
+  fs.writeFileSync(htmlPath, `<!DOCTYPE html><html><head><meta charset="utf-8"/><title>Agent Run Report</title>
+<style>body{font-family:system-ui;max-width:800px;margin:40px auto;padding:20px;color:#333}
+h1{color:#1a1a2e}code{background:#e9ecef;padding:2px 6px;border-radius:4px;font-size:0.85em}
+.badge{display:inline-block;padding:4px 12px;border-radius:12px;color:#fff;font-weight:600}
+.passed{background:#28a745}.failed{background:#dc3545}</style></head><body>
+<h1>Agent Run Report</h1>
+<p><strong>Goal:</strong> ${goal}</p>
+<p><strong>Model:</strong> ${report.model}</p>
+<p><strong>Status:</strong> <span class="badge ${status}">${status}</span></p>
+<p><strong>Duration:</strong> ${(report.duration / 1000).toFixed(1)}s</p>
+<h2>Actions (${actions.length})</h2>${actionsHtml}</body></html>`);
+
+  console.log(`\nReports saved:\n  ${jsonPath}\n  ${htmlPath}`);
+}
+
+// ─── Main agent loop ─────────────────────────────────────────────────
+async function main() {
+  const goal = process.argv.slice(2).join(" ") || "Open https://k11softwaresolutions.com and verify the homepage loads.";
+  console.log(`\n🤖 Vibium AI Agent (Claude)\n📎 Goal: ${goal}\n`);
+
+  const startTime = Date.now();
+  const mcpClient = await createMcpClient();
+  const toolsList = await mcpClient.listTools();
+  const tools = toolsList.tools || [];
+  debugLog(`Available tools: ${tools.map(t => t.name).join(", ")}`);
+
+  const messages = [{ role: "user", content: goal }];
+  const actions = [];
+  const MAX_TURNS = 15;
 
   try {
-    await client.connect(transport);
-    const toolsResult = await client.listTools();
-    debugLog("Discovered MCP tools:", toolsResult.tools.map((tool) => tool.name));
+    for (let turn = 0; turn < MAX_TURNS; turn++) {
+      const response = await callClaude(messages, tools);
+      const assistantContent = response.content || [];
 
-    const tools = toolsResult.tools.map((tool) => ({
-      type: "function",
-      name: tool.name,
-      description: tool.description || `Call MCP tool ${tool.name}`,
-      parameters: tool.inputSchema || { type: "object", properties: {} },
-      strict: false,
-    }));
+      // Check if Claude wants to use tools
+      const toolUses = assistantContent.filter(b => b.type === "tool_use");
+      const textBlocks = assistantContent.filter(b => b.type === "text");
 
-    response = await createResponse({
-      model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
-      input: [
-        {
-          role: "system",
-          content: [
-            {
-              type: "input_text",
-              text: `You are a browser automation agent. Use the provided tools to complete the user goal. Prefer using read_page_text and get_page_info to inspect state. Do not invent alternate URLs or domains. For K11 tasks, prefer ${DEFAULT_K11_URL} unless the user explicitly gives a different URL. When the goal is complete, respond with a concise summary.`,
-            },
-          ],
-        },
-        {
-          role: "user",
-          content: [{ type: "input_text", text: goal }],
-        },
-      ],
-      tools,
-    });
-
-    debugLog("Initial response output types:", (response.output || []).map((item) => item.type));
-
-    for (let step = 0; step < 8; step += 1) {
-      const functionCalls = (response.output || []).filter((item) => item.type === "function_call");
-      debugLog(`Step ${step + 1} function calls:`, functionCalls.map((item) => item.name));
-      if (functionCalls.length === 0) {
-        break;
+      if (toolUses.length === 0) {
+        // No more tool calls — agent is done
+        const finalText = textBlocks.map(b => b.text).join("\n");
+        console.log(`\n✅ Agent completed:\n${finalText}`);
+        messages.push({ role: "assistant", content: assistantContent });
+        saveReport(goal, actions, "passed", startTime);
+        return;
       }
 
-      const toolOutputs = [];
-      for (const toolCall of functionCalls) {
-        const args = toolCall.arguments ? JSON.parse(toolCall.arguments) : {};
-        debugLog(`Calling tool ${toolCall.name} with args:`, args);
-        const result = await client.callTool({ name: toolCall.name, arguments: args });
-        const normalized = normalizeToolOutput(result);
-        debugLog(`Tool ${toolCall.name} result:`, normalized);
-        toolCalls.push({
-          step: step + 1,
-          name: toolCall.name,
-          arguments: args,
-          result: normalized,
-        });
-        toolOutputs.push({
-          type: "function_call_output",
-          call_id: toolCall.call_id,
-          output: JSON.stringify(normalized),
-        });
+      // Push assistant message with tool_use blocks
+      messages.push({ role: "assistant", content: assistantContent });
+
+      // Execute each tool
+      const toolResults = [];
+      for (const toolUse of toolUses) {
+        console.log(`  🔧 ${toolUse.name}(${JSON.stringify(toolUse.input).slice(0, 100)})`);
+        try {
+          const result = await executeTool(mcpClient, toolUse.name, toolUse.input);
+          const resultText = (result.content || []).map(c => c.text || "").join("\n");
+          console.log(`     → ${resultText.slice(0, 120)}`);
+          actions.push({ tool: toolUse.name, params: toolUse.input, resultText, timestamp: new Date().toISOString() });
+          toolResults.push({ type: "tool_result", tool_use_id: toolUse.id, content: resultText });
+        } catch (err) {
+          const errMsg = `Tool error: ${err.message}`;
+          console.error(`     ❌ ${errMsg}`);
+          actions.push({ tool: toolUse.name, params: toolUse.input, error: errMsg, timestamp: new Date().toISOString() });
+          toolResults.push({ type: "tool_result", tool_use_id: toolUse.id, content: errMsg, is_error: true });
+        }
       }
 
-      response = await createResponse({
-        model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
-        previous_response_id: response.id,
-        input: toolOutputs,
-        tools,
-      });
-      debugLog(`Step ${step + 1} response output types:`, (response.output || []).map((item) => item.type));
+      messages.push({ role: "user", content: toolResults });
     }
 
-    finalResult = extractText(response);
-    console.log("Agent goal:", goal);
-    console.log("\nAgent result:\n");
-    console.log(finalResult);
-
-    const reportPaths = writeAgentReport({
-      name: reportName,
-      goal,
-      timestamp,
-      model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
-      success: true,
-      result: finalResult,
-      toolCalls,
-    });
-
-    console.log("\nAgent reports:");
-    console.log(path.relative(repoRoot, reportPaths.jsonPath));
-    console.log(path.relative(repoRoot, reportPaths.htmlPath));
+    console.log("\n⚠️ Max turns reached.");
+    saveReport(goal, actions, "failed", startTime);
+  } catch (err) {
+    console.error(`\n💥 Agent error: ${err.message}`);
+    saveReport(goal, actions, "failed", startTime);
   } finally {
-    await client.callTool({ name: "close_browser", arguments: {} }).catch(() => undefined);
-    await transport.close().catch(() => undefined);
+    await mcpClient.close().catch(() => {});
   }
 }
 
-main().catch((error) => {
-  console.error("Agent run failed:", error);
-  const timestamp = buildTimestamp();
-  const reportName = `ai-agent-failure-${timestamp}`;
-  const reportPaths = writeAgentReport({
-    name: reportName,
-    goal: process.argv.slice(2).join(" ") || `Open ${DEFAULT_K11_URL} and verify the contact page is reachable.`,
-    timestamp,
-    model: process.env.OPENAI_MODEL || "gpt-4.1-mini",
-    success: false,
-    result: String(error?.stack || error),
-    toolCalls: [],
-  });
-  console.error("Agent failure reports:");
-  console.error(path.relative(repoRoot, reportPaths.jsonPath));
-  console.error(path.relative(repoRoot, reportPaths.htmlPath));
-  process.exit(1);
-});
+main().catch(console.error);

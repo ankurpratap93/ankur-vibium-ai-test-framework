@@ -1,14 +1,12 @@
-import * as fs from 'fs';
-import * as CryptoJS from 'crypto-js';
-import { browser } from 'vibium';
-import { Workbook } from 'exceljs';
-// import { testConfig } from '../testConfig';
-import * as pdfjslib from 'pdfjs-dist-es5';
-
 /**
- * Common utility class for non-UI actions in Playwright tests.
- * All methods are original and tailored for K11softwaresolutions.com framework.
+ * Common non-UI utilities — file I/O, crypto, PDF, Excel.
+ * Rebuilt by Ankur Pratap — cleaner API, removed broken stubs.
  */
+import * as fs from 'fs';
+import * as path from 'path';
+import * as CryptoJS from 'crypto-js';
+import { Workbook } from 'exceljs';
+
 export class CommonUtils {
   readonly page: any;
 
@@ -16,54 +14,70 @@ export class CommonUtils {
     this.page = page;
   }
 
-  /**
-   * Decipher an encrypted password using AES.
-   * NOTE: testConfig is missing, so this method is stubbed.
-   */
-  async decryptPassword(): Promise<string> {
-    // const key = `SECRET`;
-    // return CryptoJS.AES.decrypt(testConfig.password, key).toString(CryptoJS.enc.Utf8);
-    throw new Error("testConfig module not found. Please provide password source.");
+  /** Decrypt AES-encrypted text. */
+  decrypt(encrypted: string, secret: string): string {
+    return CryptoJS.AES.decrypt(encrypted, secret).toString(CryptoJS.enc.Utf8);
   }
 
-  async waitMilliseconds(ms: number): Promise<void> {
+  /** Encrypt text with AES. */
+  encrypt(plainText: string, secret: string): string {
+    return CryptoJS.AES.encrypt(plainText, secret).toString();
+  }
+
+  /** Wait for specified milliseconds. */
+  async wait(ms: number): Promise<void> {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  async getExcelCellValue(fileName: string, sheetName: string, rowNum: number, cellNum: number): Promise<string> {
+  /** Read a cell value from an Excel file. */
+  async getExcelCellValue(filePath: string, sheetName: string, row: number, col: number): Promise<string> {
     const workbook = new Workbook();
-    return workbook.xlsx.readFile(`./Downloads/${fileName}`).then(() => {
-      const sheet = workbook.getWorksheet(sheetName);
-      if (!sheet) throw new Error(`Sheet '${sheetName}' not found in ${fileName}`);
-      return sheet.getRow(rowNum).getCell(cellNum).toString();
+    await workbook.xlsx.readFile(filePath);
+    const sheet = workbook.getWorksheet(sheetName);
+    if (!sheet) throw new Error(`Sheet '${sheetName}' not found in ${filePath}`);
+    return sheet.getRow(row).getCell(col).toString();
+  }
+
+  /** Read all rows from an Excel sheet as objects. */
+  async getExcelData(filePath: string, sheetName: string): Promise<Record<string, string>[]> {
+    const workbook = new Workbook();
+    await workbook.xlsx.readFile(filePath);
+    const sheet = workbook.getWorksheet(sheetName);
+    if (!sheet) throw new Error(`Sheet '${sheetName}' not found`);
+
+    const headers: string[] = [];
+    sheet.getRow(1).eachCell((cell, colNum) => { headers[colNum] = String(cell.value || '').trim(); });
+
+    const rows: Record<string, string>[] = [];
+    sheet.eachRow((row, rowNum) => {
+      if (rowNum === 1) return;
+      const obj: Record<string, string> = {};
+      row.eachCell((cell, colNum) => { obj[headers[colNum] || `col${colNum}`] = String(cell.value || ''); });
+      rows.push(obj);
     });
+    return rows;
   }
 
-  async readTextFile(filePath: string): Promise<string> {
-    return fs.readFileSync(`${filePath}`, `utf-8`);
+  /** Read a text file. */
+  readFile(filePath: string): string {
+    return fs.readFileSync(filePath, 'utf-8');
   }
 
-  async writeTextFile(filePath: number | fs.PathLike, data: string | NodeJS.ArrayBufferView): Promise<void> {
-    fs.writeFile(filePath, data, error => {
-      if (error) throw error;
-    });
+  /** Write a text file. */
+  writeFile(filePath: string, data: string): void {
+    const dir = path.dirname(filePath);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    fs.writeFileSync(filePath, data, 'utf-8');
   }
 
-  async extractPdfPageText(pdf: any, pageNo: number): Promise<string> {
-    const page = await pdf.getPage(pageNo);
-    const tokenizedText = await page.getTextContent();
-    return tokenizedText.items.map((token: any) => token.str).join(``);
+  /** Generate a timestamped filename. */
+  timestampedName(prefix: string, ext: string = 'png'): string {
+    const ts = new Date().toISOString().replace(/[:.]/g, '-');
+    return `${prefix}_${ts}.${ext}`;
   }
 
-  async extractPdfText(filePath: any): Promise<string> {
-    const dataBuffer = fs.readFileSync(filePath);
-    const pdf = await pdfjslib.getDocument(dataBuffer).promise;
-    const maxPages = pdf.numPages;
-    const pageTextPromises = [];
-    for (let pageNo = 1; pageNo <= maxPages; pageNo += 1) {
-      pageTextPromises.push(this.extractPdfPageText(pdf, pageNo));
-    }
-    const pageTexts = await Promise.all(pageTextPromises);
-    return pageTexts.join(` `);
+  /** Ensure a directory exists. */
+  ensureDir(dirPath: string): void {
+    if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
   }
 }

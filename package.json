@@ -1,10 +1,10 @@
 {
-  "name": "k11techlab-vibium-jest-ai-test-framework",
-  "version": "1.0.0",
+  "name": "ankur-vibium-ai-test-framework",
+  "version": "2.0.0",
   "private": true,
   "license": "MIT",
   "type": "module",
-  "description": "Production-style Jest + Vibium + AI test automation framework for k11softwaresolutions.com",
+  "description": "AI-native browser automation test framework — Vibium + Jest + TypeScript + MCP + Claude. Rebuilt by Ankur Pratap.",
   "keywords": [
     "vibium",
     "jest",
@@ -41,7 +41,8 @@
     "pdfjs-dist-es5": "^2.13.216",
     "sqlite3": "^6.0.1",
     "vibium": "^26.3.11",
-    "zod": "^4.1.11"
+    "zod": "^4.1.11",
+    "@anthropic-ai/sdk": "^0.39.0"
   },
   "devDependencies": {
     "@types/crypto-js": "^4.2.2",
