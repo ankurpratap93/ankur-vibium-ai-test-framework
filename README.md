@@ -19,6 +19,7 @@ structured reporting, Lighthouse auditing, AI-assisted test generation, and GitH
 - Coverage across smoke, functional, API, DB, devices, E2E, and Lighthouse
 - Timestamped HTML and JSON reports in `reports/`
 - AI-assisted test generation with optional OpenAI integration
+- AI agent and MCP server integration for tool-driven browser automation
 - GitHub Actions CI for API and smoke validation with artifact upload
 - GitHub Actions release workflow for showcase bundle packaging
 - MIT licensed and ready for portfolio or LinkedIn showcase use
@@ -82,11 +83,12 @@ reports/
 
 ## Tech Stack
 
-- Jest for test execution
+- Jest for test execution and mixed-layer orchestration
 - Vibium for browser automation
-- TypeScript for framework and test code
+- TypeScript for framework, page objects, helpers, and generated tests
+- OpenAI Responses API for AI-assisted test generation and the demo agent
+- Model Context Protocol (MCP) over stdio for tool-driven agent integration
 - Lighthouse for performance audits
-- OpenAI Responses API for optional AI-assisted test generation
 - GitHub Actions for CI/CD
 
 ## Prerequisites
@@ -213,6 +215,9 @@ Additional docs are available in `doc/`, including:
 - `doc/ai-test-generator-functions.md`
 - `doc/jest-vs-fixtures.md`
 - `doc/jest-vs-playwright-test.md`
+- `doc/reporting-implementation.md`
+- `doc/mcp-stdio.md`
+- `doc/vibium-features.md`
 
 Additional runnable demos and agent docs:
 
@@ -252,6 +257,9 @@ LinkedIn: [https://www.linkedin.com/in/kavita-jadhav-tech/](https://www.linkedin
     <img src="https://img.shields.io/badge/k11softwaresolutions-00B386?style=for-the-badge&logo=google-chrome&logoColor=white" alt="k11softwaresolutions"/>
   </a>
 </p>
+
+
+
 
 
 
