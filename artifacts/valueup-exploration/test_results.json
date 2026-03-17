@@ -1,0 +1,123 @@
+{
+  "summary": {
+    "totalTests": 12,
+    "passed": 11,
+    "failed": 1,
+    "warned": 0,
+    "passRate": "91.7%",
+    "totalDuration": "64566ms",
+    "timestamp": "2026-03-17T04:10:13.389Z",
+    "apiCallsIntercepted": 7,
+    "pagesExplored": 2
+  },
+  "results": [
+    {
+      "id": 1,
+      "suite": "Login",
+      "name": "Login page loads",
+      "status": "PASS",
+      "details": "Title: JumpIQ Advisor",
+      "duration": 3746,
+      "timestamp": "2026-03-17T04:09:14.979Z"
+    },
+    {
+      "id": 2,
+      "suite": "Login",
+      "name": "Login form DOM extracted",
+      "status": "PASS",
+      "details": "3 inputs, 7 buttons",
+      "duration": 3,
+      "timestamp": "2026-03-17T04:09:15.111Z"
+    },
+    {
+      "id": 3,
+      "suite": "Login",
+      "name": "Credentials filled",
+      "status": "PASS",
+      "details": "username: bruce",
+      "duration": 91,
+      "timestamp": "2026-03-17T04:09:15.202Z"
+    },
+    {
+      "id": 4,
+      "suite": "Login",
+      "name": "Login flow",
+      "status": "FAIL",
+      "details": "elementHandle.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - attempting click action\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m    - waiting 20ms\u001b[22m\n\u001b[2m    2 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m      - element is not enabled\u001b[22m\n\u001b[2m    - retrying click action\u001b[22m\n\u001b[2m      - waiting 100ms\u001b[22m\n\u001b[2m    58 × waiting for element to be visible, enabled and stable\u001b[22m\n\u001b[2m       - element is not enabled\u001b[22m\n\u001b[2m     - retrying click action\u001b[22m\n\u001b[2m       - waiting 500ms\u001b[22m\n",
+      "duration": 30010,
+      "timestamp": "2026-03-17T04:09:45.213Z"
+    },
+    {
+      "id": 5,
+      "suite": "Dashboard",
+      "name": "DOM structure extracted",
+      "status": "PASS",
+      "details": "0 nav links, 1 headings, 0 tables, 1 cards",
+      "duration": 2,
+      "timestamp": "2026-03-17T04:09:45.313Z"
+    },
+    {
+      "id": 6,
+      "suite": "Navigation",
+      "name": "Page: /forgot-password",
+      "status": "PASS",
+      "details": "1 headings, 0 tables, 1 inputs",
+      "duration": 4079,
+      "timestamp": "2026-03-17T04:09:49.392Z"
+    },
+    {
+      "id": 7,
+      "suite": "DP VIE",
+      "name": "DP VIE page loaded",
+      "status": "PASS",
+      "details": "0 tables, 0 charts, 1 headings",
+      "duration": 4563,
+      "timestamp": "2026-03-17T04:10:03.151Z"
+    },
+    {
+      "id": 8,
+      "suite": "API Regression",
+      "name": "GET /next/api/auth/session",
+      "status": "PASS",
+      "details": "Status: 200",
+      "duration": 348,
+      "timestamp": "2026-03-17T04:10:03.501Z"
+    },
+    {
+      "id": 9,
+      "suite": "UI Regression",
+      "name": "Console errors on dashboard",
+      "status": "PASS",
+      "details": "No errors",
+      "duration": 0,
+      "timestamp": "2026-03-17T04:10:13.063Z"
+    },
+    {
+      "id": 10,
+      "suite": "UI Regression",
+      "name": "No horizontal overflow",
+      "status": "PASS",
+      "details": "0 elements overflow at 1440px",
+      "duration": 4,
+      "timestamp": "2026-03-17T04:10:13.068Z"
+    },
+    {
+      "id": 11,
+      "suite": "UI Regression",
+      "name": "All images load",
+      "status": "PASS",
+      "details": "All images OK",
+      "duration": 1,
+      "timestamp": "2026-03-17T04:10:13.069Z"
+    },
+    {
+      "id": 12,
+      "suite": "UI Regression",
+      "name": "No broken internal links",
+      "status": "PASS",
+      "details": "1/1 links OK",
+      "duration": 320,
+      "timestamp": "2026-03-17T04:10:13.389Z"
+    }
+  ]
+}

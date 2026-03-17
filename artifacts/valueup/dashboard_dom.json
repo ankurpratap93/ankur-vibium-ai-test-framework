@@ -1,0 +1,24 @@
+{
+  "url": "https://dev.valueup.jumpiq.com/login?callbackUrl=%2Fdashboard%2Fhome",
+  "title": "JumpIQ Advisor",
+  "nav": [],
+  "headings": [
+    "Sign In"
+  ],
+  "tables": 0,
+  "cards": 1,
+  "buttons": [
+    "EULA",
+    "Terms & Conditions",
+    "Privacy Policy",
+    "Sign In",
+    "Contact your administrator"
+  ],
+  "allLinks": [
+    {
+      "text": "Forgot password?",
+      "href": "/forgot-password"
+    }
+  ],
+  "bodyText": "JumpIQ\n\nWelcome back to your dealership dashboard\n\nSign In\n\nEnter your credentials to access your account\n\nUsername\nPassword\nForgot password?\nBy selecting this, I agree to JumpIQ's EULA, the Terms & Conditions, and the Privacy Policy.\nSign In\n\nDon't have an account? Contact your administrator\n\n© 2026 JumpIQ. All rights reserved."
+}

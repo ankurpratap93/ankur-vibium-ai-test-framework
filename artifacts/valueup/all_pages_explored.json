@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/forgot-password",
+    "status": "OK",
+    "title": "JumpIQ Advisor",
+    "url": "https://dev.valueup.jumpiq.com/forgot-password",
+    "headings": [
+      "Forgot Password"
+    ],
+    "tables": 0,
+    "cards": 1,
+    "inputs": 1
+  }
+]

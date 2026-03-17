@@ -31,20 +31,25 @@
     "ai:runner:login": "powershell -ExecutionPolicy Bypass -File ./ai-test-runner/run-login-dashboard.ps1",
     "ai:runner:formslab": "powershell -ExecutionPolicy Bypass -File ./ai-test-runner/run-formslab-submit.ps1",
     "mcp:server": "tsx mcp-server/vibium-mcp-server.ts",
-    "agent:run": "node agent/run-vibium-agent.mjs"
+    "agent:run": "node agent/run-vibium-agent.mjs",
+    "dashboard": "node webapp/server/index.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",
     "@modelcontextprotocol/sdk": "^1.17.5",
     "@vibium/darwin-arm64": "^26.3.11",
+    "cors": "^2.8.6",
     "crypto-js": "^4.2.0",
     "exceljs": "^4.4.0",
+    "express": "^5.2.1",
     "pdfjs-dist-es5": "^2.13.216",
     "sqlite3": "^6.0.1",
     "vibium": "^26.3.11",
+    "ws": "^8.19.0",
     "zod": "^4.1.11"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/crypto-js": "^4.2.2",
     "@types/exceljs": "^0.5.3",
     "@types/jest": "^30.0.0",
@@ -53,6 +58,7 @@
     "jest": "^30.3.0",
     "lighthouse": "^12.8.2",
     "node-fetch": "^3.3.2",
+    "playwright": "^1.58.2",
     "ts-jest": "^29.4.6",
     "tsx": "^4.21.0",
     "typescript": "^5.0.0"

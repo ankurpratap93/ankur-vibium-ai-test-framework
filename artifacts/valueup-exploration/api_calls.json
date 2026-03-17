@@ -1,0 +1,51 @@
+[
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "timestamp": "2026-03-17T04:09:11.832Z",
+    "bodyPreview": "{}"
+  },
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "timestamp": "2026-03-17T04:09:46.126Z",
+    "bodyPreview": "{}"
+  },
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "timestamp": "2026-03-17T04:09:50.331Z",
+    "bodyPreview": "{}"
+  },
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "timestamp": "2026-03-17T04:09:54.888Z",
+    "bodyPreview": "{}"
+  },
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "timestamp": "2026-03-17T04:09:59.368Z",
+    "bodyPreview": "{}"
+  },
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "timestamp": "2026-03-17T04:10:04.136Z",
+    "bodyPreview": "{}"
+  },
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "timestamp": "2026-03-17T04:10:07.369Z",
+    "bodyPreview": "{}"
+  }
+]

@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Jest Report 2026-03-17_09-42-08</title>
+  <style>
+    body { font-family: Segoe UI, Arial, sans-serif; margin: 24px; color: #1f2937; background: #f8fafc; }
+    h1, h2 { margin-bottom: 8px; }
+    .summary { background: white; border: 1px solid #dbe2ea; border-radius: 8px; padding: 16px; margin-bottom: 24px; }
+    .suite { background: white; border: 1px solid #dbe2ea; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { border: 1px solid #e5e7eb; padding: 8px; text-align: left; vertical-align: top; }
+    th { background: #f1f5f9; }
+    .status.passed { color: #166534; font-weight: 600; }
+    .status.failed { color: #991b1b; font-weight: 600; }
+    .status.pending { color: #92400e; font-weight: 600; }
+    pre { white-space: pre-wrap; margin: 0; font-family: Consolas, monospace; font-size: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Jest Test Report</h1>
+  <div class="summary">
+    <p><strong>Timestamp:</strong> 2026-03-17_09-42-08</p>
+    <p><strong>Success:</strong> false</p>
+    <p><strong>Suites:</strong> 0/1 passed</p>
+    <p><strong>Tests:</strong> 13/16 passed, 3 failed, 0 pending</p>
+  </div>
+  
+      <section class="suite">
+        <h2>/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/valueup/valueup-full-regression.test.ts</h2>
+        <p>Passed: 13 | Failed: 3 | Pending: 0</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Suite</th>
+              <th>Test</th>
+              <th>Status</th>
+              <th>Duration (ms)</th>
+            </tr>
+          </thead>
+          <tbody>
+        <tr>
+          <td>Suite 1: Login Flow</td>
+          <td>should load the login page</td>
+          <td class="status passed">passed</td>
+          <td>3057</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 1: Login Flow</td>
+          <td>should have username and password inputs</td>
+          <td class="status passed">passed</td>
+          <td>11</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 1: Login Flow</td>
+          <td>should login successfully with valid credentials</td>
+          <td class="status failed">failed</td>
+          <td>30094</td>
+        </tr>
+        <tr><td colspan="4"><pre>locator.click: Timeout 30000ms exceeded.
+Call log:
+[2m  - waiting for locator(&#39;button[type=&quot;submit&quot;], button:has-text(&quot;Sign in&quot;), button:has-text(&quot;Login&quot;), button:has-text(&quot;Log in&quot;)&#39;).first()[22m
+[2m    - locator resolved to &lt;button disabled type=&quot;submit&quot; class=&quot;inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none [&amp;_svg]:pointer-events-none [&amp;_svg]:size-4 [&amp;_svg]:shrink-0 cursor-pointer bg-primary text-primary-foreground hover:bg-primary/90 h-9 px-4 w-full py-6 text-base font-semibold shadow-lg hover:shadow-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed&quot;&gt;…&lt;/button&gt;[22m
+[2m  - attempting click action[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m    - waiting 20ms[22m
+[2m    2 × waiting for element to be visible, enabled and stable[22m
+[2m      - element is not enabled[22m
+[2m    - retrying click action[22m
+[2m      - waiting 100ms[22m
+[2m    58 × waiting for element to be visible, enabled and stable[22m
+[2m       - element is not enabled[22m
+[2m     - retrying click action[22m
+[2m       - waiting 500ms[22m
+
+    at Object.&lt;anonymous&gt; (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/valueup/valueup-full-regression.test.ts:75:21)</pre></td></tr>
+      
+        <tr>
+          <td>Suite 2: Dashboard DOM Extraction</td>
+          <td>should extract full dashboard DOM structure</td>
+          <td class="status failed">failed</td>
+          <td>2018</td>
+        </tr>
+        <tr><td colspan="4"><pre>Error: expect(received).toBeGreaterThan(expected)
+
+Expected: &gt; 0
+Received:   0
+    at Object.&lt;anonymous&gt; (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/valueup/valueup-full-regression.test.ts:111:33)</pre></td></tr>
+      
+        <tr>
+          <td>Suite 2: Dashboard DOM Extraction</td>
+          <td>should list all navigation routes</td>
+          <td class="status failed">failed</td>
+          <td>4</td>
+        </tr>
+        <tr><td colspan="4"><pre>Error: expect(received).toBeGreaterThan(expected)
+
+Expected: &gt; 0
+Received:   0
+    at Object.&lt;anonymous&gt; (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/valueup/valueup-full-regression.test.ts:117:30)
+    at Promise.finally.completed (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/jestAdapterInit.js:1557:28)
+    at new Promise (&lt;anonymous&gt;)
+    at callAsyncCircusFn (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/jestAdapterInit.js:1497:10)
+    at _callCircusTest (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/jestAdapterInit.js:1007:40)
+    at _runTest (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/jestAdapterInit.js:947:3)
+    at /Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/jestAdapterInit.js:849:7
+    at _runTestsForDescribeBlock (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/jestAdapterInit.js:862:11)
+    at _runTestsForDescribeBlock (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/jestAdapterInit.js:857:11)
+    at run (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/jestAdapterInit.js:761:3)
+    at runAndTransformResultsToJestFormat (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/jestAdapterInit.js:1918:21)
+    at jestAdapter (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-circus/build/runner.js:101:19)
+    at runTestInternal (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-runner/build/index.js:275:16)
+    at runTest (/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/node_modules/jest-runner/build/index.js:343:7)</pre></td></tr>
+      
+        <tr>
+          <td>Suite 3: Site-wide Page Navigation</td>
+          <td>should navigate to each discovered page and extract data</td>
+          <td class="status passed">passed</td>
+          <td>3741</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 4: DP VIE Dealer Performance</td>
+          <td>should find and navigate to DP VIE</td>
+          <td class="status passed">passed</td>
+          <td>12442</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 4: DP VIE Dealer Performance</td>
+          <td>should extract dealer table data from current page</td>
+          <td class="status passed">passed</td>
+          <td>2009</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 4: DP VIE Dealer Performance</td>
+          <td>should check for data discrepancies in dealer tables</td>
+          <td class="status passed">passed</td>
+          <td>10</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 5: API Regression Tests</td>
+          <td>should have intercepted API calls during navigation</td>
+          <td class="status passed">passed</td>
+          <td>3</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 5: API Regression Tests</td>
+          <td>should validate all intercepted API responses have valid status codes</td>
+          <td class="status passed">passed</td>
+          <td>3</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 5: API Regression Tests</td>
+          <td>should re-test GET API endpoints for consistency</td>
+          <td class="status passed">passed</td>
+          <td>452</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 6: UI Regression Checks</td>
+          <td>should have no console errors on dashboard</td>
+          <td class="status passed">passed</td>
+          <td>5083</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 6: UI Regression Checks</td>
+          <td>should have no horizontal overflow</td>
+          <td class="status passed">passed</td>
+          <td>5</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 6: UI Regression Checks</td>
+          <td>should have all images loaded</td>
+          <td class="status passed">passed</td>
+          <td>2</td>
+        </tr>
+        
+      
+        <tr>
+          <td>Suite 6: UI Regression Checks</td>
+          <td>should have no broken internal links</td>
+          <td class="status passed">passed</td>
+          <td>45</td>
+        </tr>
+        
+      </tbody>
+        </table>
+      </section>
+    
+</body>
+</html>
