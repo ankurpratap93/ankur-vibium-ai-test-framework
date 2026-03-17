@@ -1,0 +1,69 @@
+{
+  "success": true,
+  "startTime": 1773719481457,
+  "timestamp": "2026-03-17_09-21-21",
+  "runName": "post-jsonplaceholder-test-and-1-more",
+  "numTotalTestSuites": 2,
+  "numPassedTestSuites": 2,
+  "numFailedTestSuites": 0,
+  "numTotalTests": 2,
+  "numPassedTests": 2,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "testResults": [
+    {
+      "testFilePath": "/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/api/POST_jsonplaceholder.test.ts",
+      "perfStats": {
+        "end": 1773719483700,
+        "loadTestEnvironmentEnd": 1773719481674,
+        "loadTestEnvironmentStart": 1773719481635,
+        "runtime": 2025,
+        "setupAfterEnvEnd": 1773719481762,
+        "setupAfterEnvStart": 1773719481762,
+        "setupFilesEnd": 1773719481675,
+        "setupFilesStart": 1773719481675,
+        "slow": false,
+        "start": 1773719481675
+      },
+      "numPassingTests": 1,
+      "numFailingTests": 0,
+      "numPendingTests": 0,
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "title": "jsonplaceholder_post: should POST and validate response",
+          "status": "passed",
+          "duration": 598,
+          "failureMessages": []
+        }
+      ]
+    },
+    {
+      "testFilePath": "/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/api/GET_jsonplaceholder.test.ts",
+      "perfStats": {
+        "end": 1773719483913,
+        "loadTestEnvironmentEnd": 1773719483708,
+        "loadTestEnvironmentStart": 1773719483704,
+        "runtime": 205,
+        "setupAfterEnvEnd": 1773719483741,
+        "setupAfterEnvStart": 1773719483741,
+        "setupFilesEnd": 1773719483708,
+        "setupFilesStart": 1773719483708,
+        "slow": false,
+        "start": 1773719483708
+      },
+      "numPassingTests": 1,
+      "numFailingTests": 0,
+      "numPendingTests": 0,
+      "assertionResults": [
+        {
+          "ancestorTitles": [],
+          "title": "jsonplaceholder_get: should GET and validate response",
+          "status": "passed",
+          "duration": 113,
+          "failureMessages": []
+        }
+      ]
+    }
+  ]
+}

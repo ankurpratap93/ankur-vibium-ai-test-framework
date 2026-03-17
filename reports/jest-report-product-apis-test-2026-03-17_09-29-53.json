@@ -1,0 +1,111 @@
+{
+  "success": false,
+  "startTime": 1773719993563,
+  "timestamp": "2026-03-17_09-29-53",
+  "runName": "product-apis-test",
+  "numTotalTestSuites": 1,
+  "numPassedTestSuites": 0,
+  "numFailedTestSuites": 1,
+  "numTotalTests": 8,
+  "numPassedTests": 6,
+  "numFailedTests": 2,
+  "numPendingTests": 0,
+  "testResults": [
+    {
+      "testFilePath": "/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/products/product-apis.test.ts",
+      "perfStats": {
+        "end": 1773720003513,
+        "loadTestEnvironmentEnd": 1773719994580,
+        "loadTestEnvironmentStart": 1773719994369,
+        "runtime": 8932,
+        "setupAfterEnvEnd": 1773719994953,
+        "setupAfterEnvStart": 1773719994953,
+        "setupFilesEnd": 1773719994581,
+        "setupFilesStart": 1773719994581,
+        "slow": true,
+        "start": 1773719994581
+      },
+      "numPassingTests": 6,
+      "numFailingTests": 2,
+      "numPendingTests": 0,
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "GitHub API: fetch public user profile",
+          "status": "passed",
+          "duration": 474,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "JSONPlaceholder: fetch all users",
+          "status": "passed",
+          "duration": 312,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "FakeStore API: fetch product catalog",
+          "status": "passed",
+          "duration": 1947,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "FakeStore API: fetch single product details",
+          "status": "passed",
+          "duration": 276,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "FakeStore API: fetch product categories",
+          "status": "passed",
+          "duration": 277,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "ReqRes API: fetch paginated users",
+          "status": "failed",
+          "duration": 219,
+          "failureMessages": [
+            "SyntaxError: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON\n    at JSON.parse (<anonymous>)\n    at parseJSONFromBytes (node:internal/deps/undici/undici:6433:19)\n    at successSteps (node:internal/deps/undici/undici:6414:27)\n    at readAllBytes (node:internal/deps/undici/undici:5380:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"
+          ]
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "ReqRes API: create a user (POST)",
+          "status": "failed",
+          "duration": 100,
+          "failureMessages": [
+            "SyntaxError: Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON\n    at JSON.parse (<anonymous>)\n    at parseJSONFromBytes (node:internal/deps/undici/undici:6433:19)\n    at successSteps (node:internal/deps/undici/undici:6414:27)\n    at readAllBytes (node:internal/deps/undici/undici:5380:13)\n    at processTicksAndRejections (node:internal/process/task_queues:105:5)"
+          ]
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "K11 Software Solutions: homepage reachable",
+          "status": "passed",
+          "duration": 1845,
+          "failureMessages": []
+        }
+      ]
+    }
+  ]
+}

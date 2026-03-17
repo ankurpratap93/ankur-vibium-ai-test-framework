@@ -1,0 +1,53 @@
+{
+  "success": false,
+  "startTime": 1773719249497,
+  "timestamp": "2026-03-17_09-17-29",
+  "runName": "post-jsonplaceholder-test-and-1-more",
+  "numTotalTestSuites": 2,
+  "numPassedTestSuites": 0,
+  "numFailedTestSuites": 2,
+  "numTotalTests": 0,
+  "numPassedTests": 0,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "testResults": [
+    {
+      "testFilePath": "/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/api/POST_jsonplaceholder.test.ts",
+      "perfStats": {
+        "end": 0,
+        "loadTestEnvironmentEnd": 0,
+        "loadTestEnvironmentStart": 0,
+        "runtime": 0,
+        "setupAfterEnvEnd": 0,
+        "setupAfterEnvStart": 0,
+        "setupFilesEnd": 0,
+        "setupFilesStart": 0,
+        "slow": false,
+        "start": 0
+      },
+      "numPassingTests": 0,
+      "numFailingTests": 0,
+      "numPendingTests": 0,
+      "assertionResults": []
+    },
+    {
+      "testFilePath": "/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/api/GET_jsonplaceholder.test.ts",
+      "perfStats": {
+        "end": 0,
+        "loadTestEnvironmentEnd": 0,
+        "loadTestEnvironmentStart": 0,
+        "runtime": 0,
+        "setupAfterEnvEnd": 0,
+        "setupAfterEnvStart": 0,
+        "setupFilesEnd": 0,
+        "setupFilesStart": 0,
+        "slow": false,
+        "start": 0
+      },
+      "numPassingTests": 0,
+      "numFailingTests": 0,
+      "numPendingTests": 0,
+      "assertionResults": []
+    }
+  ]
+}

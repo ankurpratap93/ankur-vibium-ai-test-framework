@@ -1,22 +1,15 @@
 import { APIUtil } from '../../../utils/APIUtil';
 
-const apiUtil = new APIUtil();
+const api = new APIUtil();
 
 test('jsonplaceholder_get: should GET and validate response', async () => {
-    const response = await fetch('https://jsonplaceholder.typicode.com/posts/1', {
-        method: 'GET',
-        headers: { 'Accept': 'application/json' }
+    const response = await api.get<Record<string, any>>('https://jsonplaceholder.typicode.com/posts/1');
+
+    api.assertAll(response, {
+        expectedStatus: 200,
+        requiredKeys: ['userId', 'id', 'title', 'body'],
+        requiredHeaders: ['content-type'],
     });
 
-    await apiUtil.assertStatusOk(response);
-    const body = await response.json();
-    await apiUtil.saveApiResponse('get_jsonplaceholder', body);
-    await apiUtil.assertResponseBodyKeys(['userId', 'id', 'title', 'body'], body as Record<string, any>, 'Response Body');
-
-    // Verify at least content-type header present
-    const headersArray: { name: string; value: string }[] = [];
-    response.headers.forEach((value, name) => {
-        headersArray.push({ name, value });
-    });
-    await apiUtil.assertResponseHeaders('content-type', headersArray, 'Response Headers');
+    api.saveResponse('get_jsonplaceholder', response);
 });

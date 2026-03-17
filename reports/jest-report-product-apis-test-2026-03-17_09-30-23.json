@@ -1,0 +1,107 @@
+{
+  "success": true,
+  "startTime": 1773720023600,
+  "timestamp": "2026-03-17_09-30-23",
+  "runName": "product-apis-test",
+  "numTotalTestSuites": 1,
+  "numPassedTestSuites": 1,
+  "numFailedTestSuites": 0,
+  "numTotalTests": 8,
+  "numPassedTests": 8,
+  "numFailedTests": 0,
+  "numPendingTests": 0,
+  "testResults": [
+    {
+      "testFilePath": "/Users/ankurpratap/Projects/ankur-vibium-ai-test-framework/src/k11-platform/tests/products/product-apis.test.ts",
+      "perfStats": {
+        "end": 1773720028284,
+        "loadTestEnvironmentEnd": 1773720023805,
+        "loadTestEnvironmentStart": 1773720023772,
+        "runtime": 4479,
+        "setupAfterEnvEnd": 1773720023890,
+        "setupAfterEnvStart": 1773720023890,
+        "setupFilesEnd": 1773720023805,
+        "setupFilesStart": 1773720023805,
+        "slow": false,
+        "start": 1773720023805
+      },
+      "numPassingTests": 8,
+      "numFailingTests": 0,
+      "numPendingTests": 0,
+      "assertionResults": [
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "GitHub API: fetch public user profile",
+          "status": "passed",
+          "duration": 170,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "JSONPlaceholder: fetch all users",
+          "status": "passed",
+          "duration": 351,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "FakeStore API: fetch product catalog",
+          "status": "passed",
+          "duration": 526,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "FakeStore API: fetch single product details",
+          "status": "passed",
+          "duration": 274,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "FakeStore API: fetch product categories",
+          "status": "passed",
+          "duration": 273,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "DummyJSON API: fetch product list",
+          "status": "passed",
+          "duration": 775,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "DummyJSON API: search products",
+          "status": "passed",
+          "duration": 274,
+          "failureMessages": []
+        },
+        {
+          "ancestorTitles": [
+            "Real Product API Tests"
+          ],
+          "title": "K11 Software Solutions: homepage reachable",
+          "status": "passed",
+          "duration": 494,
+          "failureMessages": []
+        }
+      ]
+    }
+  ]
+}

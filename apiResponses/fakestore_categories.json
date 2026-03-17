@@ -1,0 +1,27 @@
+{
+  "status": 200,
+  "headers": {
+    "access-control-allow-origin": "*",
+    "alt-svc": "h3=\":443\"; ma=86400",
+    "cf-cache-status": "DYNAMIC",
+    "cf-ray": "9dd9179b48284aeb-SIN",
+    "connection": "keep-alive",
+    "content-encoding": "br",
+    "content-type": "application/json; charset=utf-8",
+    "date": "Tue, 17 Mar 2026 04:00:42 GMT",
+    "etag": "W/\"3e-cdq81BKoKIRIQmboBVN84Vj+vkM\"",
+    "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+    "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=dGtjn7yQoyztwBMNuSqDf3XTFBm4FuOpZlWxKaALXSIeddYlXMxn16IFx9saU81L9hTp8zy6%2BGYmO6z4M9yrxOZShDjI82Ps3%2BKS0r3hhQw%3D\"}]}",
+    "server": "cloudflare",
+    "transfer-encoding": "chunked",
+    "x-powered-by": "Express"
+  },
+  "body": [
+    "electronics",
+    "jewelery",
+    "men's clothing",
+    "women's clothing"
+  ],
+  "duration": 269,
+  "savedAt": "2026-03-17T04:00:42.987Z"
+}
