@@ -32,7 +32,8 @@
     "ai:runner:formslab": "powershell -ExecutionPolicy Bypass -File ./ai-test-runner/run-formslab-submit.ps1",
     "mcp:server": "tsx mcp-server/vibium-mcp-server.ts",
     "agent:run": "node agent/run-vibium-agent.mjs",
-    "dashboard": "node webapp/server/index.mjs"
+    "dashboard": "node webapp/server/index.mjs",
+    "agent:test": "node scripts/agentic-tester.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.39.0",

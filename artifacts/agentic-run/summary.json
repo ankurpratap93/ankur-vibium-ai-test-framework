@@ -1,0 +1,134 @@
+{
+  "summary": {
+    "total": 15,
+    "passed": 14,
+    "failed": 1,
+    "passRate": "93.3%",
+    "duration": "74.8s",
+    "apis": 5,
+    "pages": 1,
+    "timestamp": "2026-03-17T06:38:17.186Z"
+  },
+  "results": [
+    {
+      "id": 1,
+      "suite": "Login",
+      "name": "Page loads",
+      "status": "PASS",
+      "detail": "Title: \"JumpIQ Advisor\"",
+      "duration": 3296
+    },
+    {
+      "id": 2,
+      "suite": "Login",
+      "name": "Form structure",
+      "status": "PASS",
+      "detail": "3 inputs: text, password, checkbox",
+      "duration": 18
+    },
+    {
+      "id": 3,
+      "suite": "Login",
+      "name": "Valid credentials",
+      "status": "PASS",
+      "detail": "Redirected to https://dev.valueup.jumpiq.com/login?callbackUrl=%2Fdashboard%2Fhome",
+      "duration": 51024
+    },
+    {
+      "id": 4,
+      "suite": "Dashboard",
+      "name": "DOM extraction",
+      "status": "PASS",
+      "detail": "1 links, 1 headings, 0 tables",
+      "duration": 2005
+    },
+    {
+      "id": 5,
+      "suite": "Navigation",
+      "name": "/forgot-password",
+      "status": "PASS",
+      "detail": "1 headings, 0 tables, 1 inputs",
+      "duration": 3712
+    },
+    {
+      "id": 6,
+      "suite": "DP VIE",
+      "name": "Navigate: /dp-vie",
+      "status": "PASS",
+      "detail": "Found at https://dev.valueup.jumpiq.com/dp-vie",
+      "duration": 4432
+    },
+    {
+      "id": 7,
+      "suite": "DP VIE",
+      "name": "Extract dealer data",
+      "status": "PASS",
+      "detail": "0 tables, 0 charts, 0 metrics",
+      "duration": 2
+    },
+    {
+      "id": 8,
+      "suite": "DP VIE",
+      "name": "Data discrepancy check",
+      "status": "PASS",
+      "detail": "No discrepancies",
+      "duration": 7
+    },
+    {
+      "id": 9,
+      "suite": "API",
+      "name": "Intercepted endpoints",
+      "status": "PASS",
+      "detail": "3 calls, 1 unique: GET /next/api/auth/session",
+      "duration": 1
+    },
+    {
+      "id": 10,
+      "suite": "API",
+      "name": "No server errors (5xx)",
+      "status": "PASS",
+      "detail": "All 3 responses < 500",
+      "duration": 0
+    },
+    {
+      "id": 11,
+      "suite": "API",
+      "name": "Response consistency re-test",
+      "status": "PASS",
+      "detail": "1/1 consistent, 0 changed",
+      "duration": 436
+    },
+    {
+      "id": 12,
+      "suite": "UI",
+      "name": "No console errors",
+      "status": "PASS",
+      "detail": "Clean console",
+      "duration": 4101
+    },
+    {
+      "id": 13,
+      "suite": "UI",
+      "name": "No horizontal overflow",
+      "status": "PASS",
+      "detail": "0 overflow",
+      "duration": 3
+    },
+    {
+      "id": 14,
+      "suite": "UI",
+      "name": "All images loaded",
+      "status": "PASS",
+      "detail": "All images OK",
+      "duration": 1
+    },
+    {
+      "id": 15,
+      "suite": "UI",
+      "name": "Accessibility: all inputs labelled",
+      "status": "FAIL",
+      "detail": "1 unlabelled inputs",
+      "duration": 0
+    }
+  ]
+}

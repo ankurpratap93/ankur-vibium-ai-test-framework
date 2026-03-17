@@ -3,210 +3,253 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ankur QA Automation Suite</title>
-<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/react-dom@18/umd/react-dom.production.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@babel/standalone/babel.min.js"></script>
-<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 <style>
-body{margin:0;font-family:system-ui,-apple-system,sans-serif;background:#f9fafb}
-.terminal{background:#111827;color:#d1d5db;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:12px;line-height:1.7;padding:16px;border-radius:12px;max-height:500px;overflow-y:auto}
-.log-pass{color:#34d399}.log-fail{color:#f87171}.log-warn{color:#fbbf24}.log-cmd{color:#60a5fa;font-weight:600}.log-error{color:#f87171}.log-log{color:#a78bfa}
-.tab-active{background:white;color:#111827;box-shadow:0 1px 3px rgba(0,0,0,.1)}.tab-inactive{color:#6b7280}
-.card{background:white;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:system-ui,-apple-system,sans-serif;background:#f9fafb;color:#111827}
+.header{background:#fff;border-bottom:1px solid #e5e7eb;padding:16px 24px}
+.header-inner{max-width:1100px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+.header h1{font-size:20px;font-weight:700}
+.header p{font-size:13px;color:#6b7280;margin-top:2px}
+.status-dot{width:8px;height:8px;border-radius:50%;display:inline-block;margin-right:6px}
+.container{max-width:1100px;margin:0 auto;padding:20px 24px}
+.tabs{display:flex;gap:4px;background:#f3f4f6;border-radius:10px;padding:4px;margin-bottom:20px}
+.tab{flex:1;padding:8px 0;border-radius:8px;border:none;cursor:pointer;font-size:14px;font-weight:500;background:transparent;color:#6b7280;text-align:center}
+.tab.active{background:#fff;color:#111827;box-shadow:0 1px 3px rgba(0,0,0,.1)}
+.card{background:#fff;border:1px solid #e5e7eb;border-radius:12px;overflow:hidden;margin-bottom:16px}
+.card-header{padding:12px 16px;border-bottom:1px solid #e5e7eb;font-weight:600;font-size:14px;background:#f9fafb}
+.row{padding:12px 16px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;font-size:14px}
+.row:last-child{border-bottom:none}
+.row:hover{background:#f9fafb}
 .badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:11px;font-weight:600}
-.badge-pass{background:#d1fae5;color:#065f46}.badge-fail{background:#fee2e2;color:#991b1b}.badge-warn{background:#fef3c7;color:#92400e}.badge-run{background:#dbeafe;color:#1e40af}
+.badge-pass{background:#d1fae5;color:#065f46}.badge-fail{background:#fee2e2;color:#991b1b}.badge-run{background:#dbeafe;color:#1e40af}
 .btn{padding:10px 24px;border-radius:8px;font-weight:600;font-size:14px;border:none;cursor:pointer;transition:all .2s}
-.btn-primary{background:#2563eb;color:white}.btn-primary:hover{background:#1d4ed8;box-shadow:0 4px 12px rgba(37,99,235,.3)}
-.btn-danger{background:#dc2626;color:white}.btn-danger:hover{background:#b91c1c}
+.btn-primary{background:#2563eb;color:#fff}.btn-primary:hover{background:#1d4ed8}
+.btn-danger{background:#dc2626;color:#fff}.btn-danger:hover{background:#b91c1c}
 .btn:disabled{opacity:.5;cursor:not-allowed}
-.suite-item{padding:12px 16px;border-bottom:1px solid #f3f4f6;display:flex;align-items:center;justify-content:space-between;cursor:pointer;transition:background .15s}
-.suite-item:hover{background:#f9fafb}
-.stat-card{text-align:center;padding:20px;border-radius:12px;border:1px solid #e5e7eb;background:white}
+.terminal{background:#111827;color:#d1d5db;font-family:'SF Mono',Monaco,Consolas,monospace;font-size:12px;line-height:1.7;padding:16px;border-radius:12px;max-height:500px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
+.log-pass{color:#34d399}.log-fail{color:#f87171}.log-warn{color:#fbbf24}.log-cmd{color:#60a5fa;font-weight:600}.log-error{color:#f87171}.log-log{color:#a78bfa}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+.stat{text-align:center;padding:20px;border-radius:12px;border:1px solid #e5e7eb;background:#fff}
 .stat-num{font-size:32px;font-weight:700;line-height:1}.stat-label{font-size:12px;color:#6b7280;margin-top:4px}
-input[type=text],input[type=password],input[type=number]{width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;outline:none;transition:border .2s}
+.controls{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px}
+select{padding:8px 12px;border-radius:8px;border:1px solid #d1d5db;font-size:14px;outline:none}
+select:focus{border-color:#2563eb}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;padding:24px}
+label{font-size:13px;font-weight:500;display:block;margin-bottom:4px}
+input[type=text],input[type=password],input[type=number]{width:100%;padding:8px 12px;border:1px solid #d1d5db;border-radius:8px;font-size:14px;outline:none}
 input:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,.1)}
+.hidden{display:none}
+.flex{display:flex}.gap-2{gap:8px}.items-center{align-items:center}
 </style>
 </head>
 <body>
-<div id="root"></div>
-<script type="text/babel">
-const { useState, useEffect, useRef, useCallback } = React;
 
-function App() {
-  const [tab, setTab] = useState('run');
-  const [suites, setSuites] = useState([]);
-  const [logs, setLogs] = useState([]);
-  const [status, setStatus] = useState('idle');
-  const [artifacts, setArtifacts] = useState([]);
-  const [reports, setReports] = useState([]);
-  const [selected, setSelected] = useState('src/k11-platform/tests');
-  const [config, setConfig] = useState({ url:'https://dev.valueup.jumpiq.com', username:'bruce', password:'JumpUser@2024!', headless:true });
-  const wsRef = useRef(null);
-  const logRef = useRef(null);
-  const [stats, setStats] = useState({ pass:0, fail:0, total:0, suites:0, time:'' });
+<div class="header">
+  <div class="header-inner">
+    <div>
+      <h1>Ankur QA Automation Suite</h1>
+      <p>Vibium + Jest + Playwright + Claude | Headless Regression Testing</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="status-dot" id="statusDot" style="background:#d1d5db"></span>
+      <span id="statusText" style="font-size:12px;color:#6b7280">Ready</span>
+    </div>
+  </div>
+</div>
 
-  useEffect(() => { fetch('/api/suites').then(r=>r.json()).then(setSuites).catch(()=>{}); }, []);
+<div class="container">
+  <div class="tabs">
+    <button class="tab active" onclick="showTab('run')">Run Tests</button>
+    <button class="tab" onclick="showTab('config')">Configure</button>
+    <button class="tab" onclick="showTab('artifacts')">Artifacts</button>
+    <button class="tab" onclick="showTab('reports')">Reports</button>
+  </div>
 
-  const parseStats = useCallback((allLogs) => {
-    const text = allLogs.map(l=>l.text).join('\n');
-    const m = text.match(/Tests:\s+(\d+)\s+failed.*?(\d+)\s+passed.*?(\d+)\s+total/);
-    const s = text.match(/Test Suites:\s+.*?(\d+)\s+total/);
-    const t = text.match(/Time:\s+([\d.]+\s*s)/);
-    if(m) setStats({ fail:+m[1]||0, pass:+m[2]||0, total:+m[3]||0, suites:s?+s[1]:0, time:t?t[1]:'' });
-    else {
-      const pm = text.match(/Tests:.*?(\d+)\s+passed.*?(\d+)\s+total/);
-      if(pm) setStats({ fail:0, pass:+pm[1]||0, total:+pm[2]||0, suites:s?+s[1]:0, time:t?t[1]:'' });
-    }
-  }, []);
-
-  const runTests = () => {
-    setLogs([]); setStatus('running'); setStats({ pass:0, fail:0, total:0, suites:0, time:'' });
-    const ws = new WebSocket(`ws://${location.host}/ws`);
-    wsRef.current = ws;
-    const collected = [];
-    ws.onopen = () => ws.send(JSON.stringify({ type:'run', suite: selected }));
-    ws.onmessage = (e) => {
-      const msg = JSON.parse(e.data);
-      if (msg.type === 'log') { collected.push(msg); setLogs(prev => [...prev, msg]); }
-      if (msg.type === 'status') setStatus(msg.status);
-      if (msg.type === 'done') { parseStats(collected); ws.close(); fetch('/api/artifacts').then(r=>r.json()).then(setArtifacts); fetch('/api/reports').then(r=>r.json()).then(setReports); }
-    };
-    ws.onerror = () => setStatus('error');
-  };
-
-  const abort = () => { if(wsRef.current) wsRef.current.send(JSON.stringify({type:'abort'})); };
-
-  useEffect(() => { if(logRef.current) logRef.current.scrollTop = logRef.current.scrollHeight; }, [logs]);
-  useEffect(() => { if(tab==='artifacts') fetch('/api/artifacts').then(r=>r.json()).then(setArtifacts); if(tab==='reports') fetch('/api/reports').then(r=>r.json()).then(setReports); }, [tab]);
-
-  const passRate = stats.total > 0 ? ((stats.pass/stats.total)*100).toFixed(1) : '0';
-  const tabs = [{id:'run',label:'Run Tests'},{id:'config',label:'Configure'},{id:'artifacts',label:'Artifacts'},{id:'reports',label:'Reports'}];
-
-  return (
-    <div style={{minHeight:'100vh'}}>
-      <div style={{background:'white',borderBottom:'1px solid #e5e7eb',padding:'16px 24px'}}>
-        <div style={{maxWidth:1100,margin:'0 auto',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-          <div>
-            <h1 style={{fontSize:20,fontWeight:700,margin:0,color:'#111827'}}>Ankur QA Automation Suite</h1>
-            <p style={{fontSize:13,color:'#6b7280',margin:'2px 0 0'}}>Vibium + Jest + Playwright + Claude | Headless Regression Testing</p>
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:8}}>
-            <div style={{width:8,height:8,borderRadius:99,background:status==='running'?'#3b82f6':status==='passed'?'#10b981':status==='failed'?'#ef4444':'#d1d5db'}}/>
-            <span style={{fontSize:12,color:'#6b7280'}}>{status==='idle'?'Ready':status}</span>
-          </div>
-        </div>
-      </div>
-      <div style={{maxWidth:1100,margin:'0 auto',padding:'20px 24px'}}>
-        <div style={{display:'flex',gap:4,background:'#f3f4f6',borderRadius:10,padding:4,marginBottom:20}}>
-          {tabs.map(t=>(
-            <button key={t.id} onClick={()=>setTab(t.id)} className={tab===t.id?'tab-active':'tab-inactive'} style={{flex:1,padding:'8px 0',borderRadius:8,border:'none',cursor:'pointer',fontSize:14,fontWeight:500}}>{t.label}</button>
-          ))}
-        </div>
-
-        {tab==='config' && (
-          <div className="card" style={{padding:24}}>
-            <h2 style={{fontSize:18,fontWeight:600,marginBottom:16}}>Target Configuration</h2>
-            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
-              <div><label style={{fontSize:13,fontWeight:500,display:'block',marginBottom:4}}>Base URL</label><input type="text" value={config.url} onChange={e=>setConfig({...config,url:e.target.value})}/></div>
-              <div><label style={{fontSize:13,fontWeight:500,display:'block',marginBottom:4}}>Username</label><input type="text" value={config.username} onChange={e=>setConfig({...config,username:e.target.value})}/></div>
-              <div><label style={{fontSize:13,fontWeight:500,display:'block',marginBottom:4}}>Password</label><input type="password" value={config.password} onChange={e=>setConfig({...config,password:e.target.value})}/></div>
-              <div><label style={{fontSize:13,fontWeight:500,display:'block',marginBottom:4}}>Mode</label><div style={{padding:'10px 0'}}><label style={{fontSize:14,cursor:'pointer'}}><input type="checkbox" checked={config.headless} onChange={e=>setConfig({...config,headless:e.target.checked})} style={{marginRight:6}}/>Headless Chromium</label></div></div>
-            </div>
-          </div>
-        )}
-
-        {tab==='run' && (
-          <div>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:16}}>
-              <div style={{display:'flex',alignItems:'center',gap:12}}>
-                <select value={selected} onChange={e=>setSelected(e.target.value)} style={{padding:'8px 12px',borderRadius:8,border:'1px solid #d1d5db',fontSize:14}}>
-                  <option value="src/k11-platform/tests">All Suites</option>
-                  {suites.map(s=><option key={s.id} value={s.path}>{s.name} ({s.files.length} files)</option>)}
-                </select>
-              </div>
-              <div style={{display:'flex',gap:8}}>
-                {status==='running' && <button className="btn btn-danger" onClick={abort}>Abort</button>}
-                <button className="btn btn-primary" onClick={runTests} disabled={status==='running'}>{status==='running'?'Running...':'Run Tests'}</button>
-              </div>
-            </div>
-
-            {(stats.total > 0 || status==='running') && (
-              <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:12,marginBottom:16}}>
-                <div className="stat-card"><div className="stat-num" style={{color:'#10b981'}}>{stats.pass}</div><div className="stat-label">Passed</div></div>
-                <div className="stat-card"><div className="stat-num" style={{color:'#ef4444'}}>{stats.fail}</div><div className="stat-label">Failed</div></div>
-                <div className="stat-card"><div className="stat-num">{stats.total}</div><div className="stat-label">Total</div></div>
-                <div className="stat-card"><div className="stat-num" style={{color:+passRate>=80?'#10b981':'#ef4444'}}>{passRate}%</div><div className="stat-label">Pass Rate</div></div>
-                <div className="stat-card"><div className="stat-num" style={{fontSize:22}}>{stats.time||'—'}</div><div className="stat-label">Duration</div></div>
-              </div>
-            )}
-
-            <div className="terminal" ref={logRef}>
-              {logs.length===0 && <span style={{color:'#4b5563'}}>Select a suite and press "Run Tests" to begin...</span>}
-              {logs.map((l,i)=>(
-                <div key={i} className={`log-${l.level}`}>{l.text}</div>
-              ))}
-              {status==='running' && <span className="log-cmd" style={{animation:'blink 1s infinite'}}>▌</span>}
-            </div>
-
-            {suites.length > 0 && status==='idle' && (
-              <div className="card" style={{marginTop:16}}>
-                <div style={{padding:'12px 16px',borderBottom:'1px solid #e5e7eb',fontWeight:600,fontSize:14}}>Available Test Suites</div>
-                {suites.map(s=>(
-                  <div key={s.id} className="suite-item" onClick={()=>{setSelected(s.path);setTab('run')}}>
-                    <div><div style={{fontWeight:500,fontSize:14}}>{s.name}</div><div style={{fontSize:12,color:'#6b7280'}}>{s.files.join(', ')}</div></div>
-                    <span className="badge badge-run">{s.files.length} test{s.files.length>1?'s':''}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {tab==='artifacts' && (
-          <div>
-            <h2 style={{fontSize:18,fontWeight:600,marginBottom:12}}>Artifacts & Screenshots</h2>
-            {artifacts.length===0?<p style={{color:'#6b7280',fontSize:14}}>No artifacts yet. Run a test suite first.</p>:(
-              <div className="card">
-                {artifacts.map((a,i)=>(
-                  <div key={i} className="suite-item">
-                    <div>
-                      <div style={{fontWeight:500,fontSize:14}}>{a.file}</div>
-                      <div style={{fontSize:12,color:'#6b7280'}}>{a.dir} · {(a.size/1024).toFixed(1)} KB</div>
-                    </div>
-                    <a href={`/api/artifact/${a.dir}/${a.file}`} target="_blank" style={{fontSize:12,color:'#2563eb',textDecoration:'none'}}>
-                      {a.file.endsWith('.png')?'View':'Download'}
-                    </a>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {tab==='reports' && (
-          <div>
-            <h2 style={{fontSize:18,fontWeight:600,marginBottom:12}}>Test Reports</h2>
-            {reports.length===0?<p style={{color:'#6b7280',fontSize:14}}>No reports yet.</p>:(
-              <div className="card">
-                {reports.map((r,i)=>(
-                  <div key={i} className="suite-item">
-                    <div>
-                      <div style={{fontWeight:500,fontSize:14}}>{r.file}</div>
-                      <div style={{fontSize:12,color:'#6b7280'}}>{r.numPassedTests||0} passed, {r.numFailedTests||0} failed · {r.numTotalTests||0} total</div>
-                    </div>
-                    <span className={`badge ${(r.numFailedTests||0)===0?'badge-pass':'badge-fail'}`}>{(r.numFailedTests||0)===0?'PASS':'FAIL'}</span>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+  <!-- RUN TAB -->
+  <div id="tab-run">
+    <div class="controls">
+      <select id="suiteSelect"><option value="src/k11-platform/tests">All Suites</option></select>
+      <div class="flex gap-2">
+        <button class="btn btn-danger hidden" id="abortBtn" onclick="abortTests()">Abort</button>
+        <button class="btn btn-primary" id="runBtn" onclick="runTests()">Run Tests</button>
       </div>
     </div>
-  );
+
+    <div class="stats hidden" id="statsGrid">
+      <div class="stat"><div class="stat-num" id="statPass" style="color:#10b981">0</div><div class="stat-label">Passed</div></div>
+      <div class="stat"><div class="stat-num" id="statFail" style="color:#ef4444">0</div><div class="stat-label">Failed</div></div>
+      <div class="stat"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total</div></div>
+      <div class="stat"><div class="stat-num" id="statRate" style="color:#10b981">0%</div><div class="stat-label">Pass Rate</div></div>
+      <div class="stat"><div class="stat-num" id="statTime" style="font-size:22px">—</div><div class="stat-label">Duration</div></div>
+    </div>
+
+    <div class="terminal" id="terminal">Select a suite and press "Run Tests" to begin...</div>
+
+    <div id="suitesCard" class="card" style="margin-top:16px">
+      <div class="card-header">Available Test Suites</div>
+      <div id="suitesList"></div>
+    </div>
+  </div>
+
+  <!-- CONFIG TAB -->
+  <div id="tab-config" class="hidden">
+    <div class="card">
+      <div class="card-header">Target Configuration</div>
+      <div class="form-grid">
+        <div><label>Base URL</label><input type="text" id="cfgUrl" value="https://dev.valueup.jumpiq.com"></div>
+        <div><label>Username</label><input type="text" id="cfgUser" value="bruce"></div>
+        <div><label>Password</label><input type="password" id="cfgPass" value="JumpUser@2024!"></div>
+        <div><label>DP VIE Path</label><input type="text" id="cfgDpVie" value="/dp-vie"></div>
+        <div><label>Timeout (ms)</label><input type="number" id="cfgTimeout" value="20000"></div>
+        <div style="padding-top:24px"><label><input type="checkbox" id="cfgHeadless" checked> Headless Chromium</label></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARTIFACTS TAB -->
+  <div id="tab-artifacts" class="hidden">
+    <div class="card">
+      <div class="card-header">Artifacts & Screenshots</div>
+      <div id="artifactsList"><div class="row" style="color:#6b7280">Loading...</div></div>
+    </div>
+  </div>
+
+  <!-- REPORTS TAB -->
+  <div id="tab-reports" class="hidden">
+    <div class="card">
+      <div class="card-header">Test Reports</div>
+      <div id="reportsList"><div class="row" style="color:#6b7280">Loading...</div></div>
+    </div>
+  </div>
+</div>
+
+<script>
+let ws = null;
+let currentStatus = 'idle';
+
+// Tab switching
+function showTab(name) {
+  document.querySelectorAll('[id^="tab-"]').forEach(el => el.classList.add('hidden'));
+  document.getElementById('tab-' + name).classList.remove('hidden');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  if (name === 'artifacts') loadArtifacts();
+  if (name === 'reports') loadReports();
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+// Load suites
+fetch('/api/suites').then(r => r.json()).then(suites => {
+  const sel = document.getElementById('suiteSelect');
+  const list = document.getElementById('suitesList');
+  suites.forEach(s => {
+    sel.innerHTML += '<option value="' + s.path + '">' + s.name + ' (' + s.files.length + ' files)</option>';
+    list.innerHTML += '<div class="row" style="cursor:pointer" onclick="document.getElementById(\'suiteSelect\').value=\'' + s.path + '\'">' +
+      '<div><b>' + s.name + '</b><br><span style="font-size:12px;color:#6b7280">' + s.files.join(', ') + '</span></div>' +
+      '<span class="badge badge-run">' + s.files.length + ' test' + (s.files.length > 1 ? 's' : '') + '</span></div>';
+  });
+}).catch(() => {});
+
+// Run tests via WebSocket
+function runTests() {
+  const suite = document.getElementById('suiteSelect').value;
+  const terminal = document.getElementById('terminal');
+  terminal.innerHTML = '';
+  document.getElementById('statsGrid').classList.remove('hidden');
+  document.getElementById('suitesCard').classList.add('hidden');
+  document.getElementById('runBtn').disabled = true;
+  document.getElementById('runBtn').textContent = 'Running...';
+  document.getElementById('abortBtn').classList.remove('hidden');
+  setStatus('running');
+
+  ws = new WebSocket('ws://' + location.host + '/ws');
+  const allLogs = [];
+
+  ws.onopen = () => ws.send(JSON.stringify({ type: 'run', suite: suite }));
+
+  ws.onmessage = (e) => {
+    const msg = JSON.parse(e.data);
+    if (msg.type === 'log') {
+      allLogs.push(msg);
+      const line = document.createElement('div');
+      line.className = 'log-' + msg.level;
+      line.textContent = msg.text;
+      terminal.appendChild(line);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+    if (msg.type === 'status') setStatus(msg.status);
+    if (msg.type === 'done') {
+      parseStats(allLogs);
+      document.getElementById('runBtn').disabled = false;
+      document.getElementById('runBtn').textContent = 'Run Tests';
+      document.getElementById('abortBtn').classList.add('hidden');
+      ws.close();
+    }
+  };
+
+  ws.onerror = () => { setStatus('error'); document.getElementById('runBtn').disabled = false; document.getElementById('runBtn').textContent = 'Run Tests'; };
+}
+
+function abortTests() {
+  if (ws) ws.send(JSON.stringify({ type: 'abort' }));
+}
+
+function setStatus(s) {
+  currentStatus = s;
+  const dot = document.getElementById('statusDot');
+  const text = document.getElementById('statusText');
+  if (s === 'running') { dot.style.background = '#3b82f6'; text.textContent = 'Running...'; }
+  else if (s === 'passed') { dot.style.background = '#10b981'; text.textContent = 'Passed'; }
+  else if (s === 'failed') { dot.style.background = '#ef4444'; text.textContent = 'Failed'; }
+  else if (s === 'aborted') { dot.style.background = '#f59e0b'; text.textContent = 'Aborted'; }
+  else { dot.style.background = '#d1d5db'; text.textContent = 'Ready'; }
+}
+
+function parseStats(logs) {
+  const text = logs.map(l => l.text).join('\n');
+  let pass = 0, fail = 0, total = 0, time = '—';
+  // Try "X failed, Y passed, Z total"
+  let m = text.match(/Tests:\s+(\d+)\s+failed.*?(\d+)\s+passed.*?(\d+)\s+total/);
+  if (m) { fail = +m[1]; pass = +m[2]; total = +m[3]; }
+  else {
+    m = text.match(/Tests:\s+(\d+)\s+passed.*?(\d+)\s+total/);
+    if (m) { pass = +m[1]; total = +m[2]; }
+  }
+  m = text.match(/Time:\s+([\d.]+\s*s)/);
+  if (m) time = m[1];
+
+  document.getElementById('statPass').textContent = pass;
+  document.getElementById('statFail').textContent = fail;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statTime').textContent = time;
+  const rate = total > 0 ? ((pass / total) * 100).toFixed(1) : '0';
+  document.getElementById('statRate').textContent = rate + '%';
+  document.getElementById('statRate').style.color = +rate >= 80 ? '#10b981' : '#ef4444';
+}
+
+function loadArtifacts() {
+  fetch('/api/artifacts').then(r => r.json()).then(arts => {
+    const el = document.getElementById('artifactsList');
+    if (!arts.length) { el.innerHTML = '<div class="row" style="color:#6b7280">No artifacts yet. Run a test suite first.</div>'; return; }
+    el.innerHTML = arts.map(a =>
+      '<div class="row"><div><b>' + a.file + '</b><br><span style="font-size:12px;color:#6b7280">' + a.dir + ' &middot; ' + (a.size / 1024).toFixed(1) + ' KB</span></div>' +
+      '<a href="/api/artifact/' + a.dir + '/' + a.file + '" target="_blank" style="color:#2563eb;text-decoration:none;font-size:13px">' +
+      (a.file.endsWith('.png') ? 'View' : 'Download') + '</a></div>'
+    ).join('');
+  }).catch(() => {});
+}
+
+function loadReports() {
+  fetch('/api/reports').then(r => r.json()).then(reps => {
+    const el = document.getElementById('reportsList');
+    if (!reps.length) { el.innerHTML = '<div class="row" style="color:#6b7280">No reports yet.</div>'; return; }
+    el.innerHTML = reps.map(r =>
+      '<div class="row"><div><b>' + r.file + '</b><br><span style="font-size:12px;color:#6b7280">' +
+      (r.numPassedTests || 0) + ' passed, ' + (r.numFailedTests || 0) + ' failed &middot; ' + (r.numTotalTests || 0) + ' total</span></div>' +
+      '<span class="badge ' + ((r.numFailedTests || 0) === 0 ? 'badge-pass' : 'badge-fail') + '">' +
+      ((r.numFailedTests || 0) === 0 ? 'PASS' : 'FAIL') + '</span></div>'
+    ).join('');
+  }).catch(() => {});
+}
 </script>
 </body>
 </html>

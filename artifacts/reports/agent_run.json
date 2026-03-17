@@ -1,0 +1,213 @@
+{
+  "summary": {
+    "total": 16,
+    "passed": 16,
+    "failed": 0,
+    "warned": 0,
+    "passRate": "100.0%",
+    "duration": 77611,
+    "apis": 5,
+    "pages": 1,
+    "ts": "2026-03-17T04:26:57.073Z"
+  },
+  "results": [
+    {
+      "id": 1,
+      "suite": "Login",
+      "name": "Login page loads",
+      "status": "PASS",
+      "detail": "JumpIQ Advisor",
+      "duration": 2953,
+      "ts": "2026-03-17T04:25:42.995Z"
+    },
+    {
+      "id": 2,
+      "suite": "Login",
+      "name": "Credentials filled",
+      "status": "PASS",
+      "detail": "",
+      "duration": 30094,
+      "ts": "2026-03-17T04:26:13.199Z"
+    },
+    {
+      "id": 3,
+      "suite": "Login",
+      "name": "Login submit",
+      "status": "PASS",
+      "detail": "https://dev.valueup.jumpiq.com/login?callbackUrl=%2Fdashboard%2Fhome",
+      "duration": 25830,
+      "ts": "2026-03-17T04:26:39.029Z"
+    },
+    {
+      "id": 4,
+      "suite": "Discovery",
+      "name": "Links extracted",
+      "status": "PASS",
+      "detail": "1 total, 0 sidebar",
+      "duration": 3,
+      "ts": "2026-03-17T04:26:39.139Z"
+    },
+    {
+      "id": 5,
+      "suite": "Pages",
+      "name": "/forgot-password",
+      "status": "PASS",
+      "detail": "0T 0C 1K 1I",
+      "duration": 3694,
+      "ts": "2026-03-17T04:26:42.833Z"
+    },
+    {
+      "id": 6,
+      "suite": "DP VIE",
+      "name": "Page loaded",
+      "status": "PASS",
+      "detail": "https://dev.valueup.jumpiq.com/dp-vie",
+      "duration": 5064,
+      "ts": "2026-03-17T04:26:47.897Z"
+    },
+    {
+      "id": 7,
+      "suite": "DP VIE",
+      "name": "Data extracted",
+      "status": "PASS",
+      "detail": "0 tables, 0 charts, 0 metrics",
+      "duration": 2,
+      "ts": "2026-03-17T04:26:47.944Z"
+    },
+    {
+      "id": 8,
+      "suite": "Data Check",
+      "name": "No discrepancies",
+      "status": "PASS",
+      "detail": "All dealer data consistent",
+      "duration": 0,
+      "ts": "2026-03-17T04:26:47.944Z"
+    },
+    {
+      "id": 9,
+      "suite": "API",
+      "name": "Total intercepted",
+      "status": "PASS",
+      "detail": "3 calls captured",
+      "duration": 0,
+      "ts": "2026-03-17T04:26:47.945Z"
+    },
+    {
+      "id": 10,
+      "suite": "API",
+      "name": "GET /next/api/auth/session",
+      "status": "PASS",
+      "detail": "Status 200, 0.0KB",
+      "duration": 0,
+      "ts": "2026-03-17T04:26:47.946Z"
+    },
+    {
+      "id": 11,
+      "suite": "API",
+      "name": "Error rate",
+      "status": "PASS",
+      "detail": "0/3 errors (100.0% success)",
+      "duration": 0,
+      "ts": "2026-03-17T04:26:47.946Z"
+    },
+    {
+      "id": 12,
+      "suite": "API Retest",
+      "name": "Consistency",
+      "status": "PASS",
+      "detail": "1/1 stable",
+      "duration": 0,
+      "ts": "2026-03-17T04:26:48.485Z"
+    },
+    {
+      "id": 13,
+      "suite": "UI",
+      "name": "Console errors",
+      "status": "PASS",
+      "detail": "0 errors",
+      "duration": 0,
+      "ts": "2026-03-17T04:26:57.053Z"
+    },
+    {
+      "id": 14,
+      "suite": "UI",
+      "name": "No horizontal overflow",
+      "status": "PASS",
+      "detail": "0 elements overflow",
+      "duration": 0,
+      "ts": "2026-03-17T04:26:57.058Z"
+    },
+    {
+      "id": 15,
+      "suite": "UI",
+      "name": "Images loaded",
+      "status": "PASS",
+      "detail": "0 broken",
+      "duration": 0,
+      "ts": "2026-03-17T04:26:57.059Z"
+    },
+    {
+      "id": 16,
+      "suite": "UI",
+      "name": "Internal links",
+      "status": "PASS",
+      "detail": "1/1 OK",
+      "duration": 0,
+      "ts": "2026-03-17T04:26:57.073Z"
+    }
+  ],
+  "apis": [
+    {
+      "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+      "method": "GET",
+      "status": 200,
+      "size": 2,
+      "ts": "2026-03-17T04:25:40.680Z"
+    },
+    {
+      "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+      "method": "GET",
+      "status": 200,
+      "size": 2,
+      "ts": "2026-03-17T04:26:39.579Z"
+    },
+    {
+      "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+      "method": "GET",
+      "status": 200,
+      "size": 2,
+      "ts": "2026-03-17T04:26:43.634Z"
+    },
+    {
+      "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+      "method": "GET",
+      "status": 200,
+      "size": 2,
+      "ts": "2026-03-17T04:26:49.125Z"
+    },
+    {
+      "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+      "method": "GET",
+      "status": 200,
+      "size": 2,
+      "ts": "2026-03-17T04:26:52.459Z"
+    }
+  ],
+  "pages": [
+    {
+      "path": "/forgot-password",
+      "title": "JumpIQ Advisor",
+      "url": "https://dev.valueup.jumpiq.com/forgot-password",
+      "h": [
+        "Forgot Password"
+      ],
+      "tables": 0,
+      "cards": 1,
+      "inputs": 1,
+      "charts": 0,
+      "btns": [
+        "Send Reset Link"
+      ]
+    }
+  ]
+}

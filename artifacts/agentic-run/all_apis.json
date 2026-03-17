@@ -1,0 +1,23 @@
+[
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "body": "{}",
+    "ts": "2026-03-17T06:37:03.713Z"
+  },
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "body": "{}",
+    "ts": "2026-03-17T06:37:59.924Z"
+  },
+  {
+    "url": "https://dev.valueup.jumpiq.com/next/api/auth/session",
+    "method": "GET",
+    "status": 200,
+    "body": "{}",
+    "ts": "2026-03-17T06:38:03.563Z"
+  }
+]

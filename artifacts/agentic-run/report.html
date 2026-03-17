@@ -1,0 +1,36 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>QA Agentic Test Report</title>
+<style>*{margin:0;padding:0;box-sizing:border-box}body{font-family:system-ui,sans-serif;background:#f9fafb;padding:32px}
+.container{max-width:900px;margin:0 auto}.header{text-align:center;margin-bottom:32px}
+h1{font-size:24px;font-weight:700;color:#111827}h2{font-size:18px;font-weight:600;margin:24px 0 12px;color:#1f2937}
+.subtitle{color:#6b7280;margin-top:4px;font-size:14px}
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin:20px 0}
+.stat{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:20px;text-align:center}
+.stat-num{font-size:28px;font-weight:700}.stat-label{font-size:12px;color:#6b7280;margin-top:4px}
+.green{color:#059669}.red{color:#dc2626}.blue{color:#2563eb}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;margin-bottom:16px}
+th{background:#f9fafb;padding:10px 14px;text-align:left;font-size:12px;font-weight:600;color:#6b7280;border-bottom:1px solid #e5e7eb}
+td{padding:10px 14px;border-bottom:1px solid #f3f4f6;font-size:13px}
+.pass{color:#059669;font-weight:600}.fail{color:#dc2626;font-weight:600}
+.badge{display:inline-block;padding:2px 10px;border-radius:99px;font-size:11px;font-weight:600}
+.badge-pass{background:#d1fae5;color:#065f46}.badge-fail{background:#fee2e2;color:#991b1b}
+.api-row td{font-family:monospace;font-size:12px}
+</style></head><body><div class="container">
+<div class="header"><h1>🤖 Agentic QA Test Report</h1><p class="subtitle">ValueUp JumpIQ — 3/17/2026 12:08:17 PM<br>Target: https://dev.valueup.jumpiq.com | User: bruce | Mode: Headless Chromium</p></div>
+<div class="stats">
+<div class="stat"><div class="stat-num green">14</div><div class="stat-label">Passed</div></div>
+<div class="stat"><div class="stat-num red">1</div><div class="stat-label">Failed</div></div>
+<div class="stat"><div class="stat-num">15</div><div class="stat-label">Total</div></div>
+<div class="stat"><div class="stat-num green">93.3%</div><div class="stat-label">Pass Rate</div></div>
+<div class="stat"><div class="stat-num blue">74.8s</div><div class="stat-label">Duration</div></div>
+</div>
+<h2>Test Results</h2><table><tr><th>#</th><th>Suite</th><th>Test</th><th>Status</th><th>Details</th><th>Time</th></tr>
+<tr><td>1</td><td>Login</td><td>Page loads</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Title: "JumpIQ Advisor"</td><td>3296ms</td></tr><tr><td>2</td><td>Login</td><td>Form structure</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">3 inputs: text, password, checkbox</td><td>18ms</td></tr><tr><td>3</td><td>Login</td><td>Valid credentials</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Redirected to https://dev.valueup.jumpiq.com/login?callbackUrl=%2Fdashboard%2Fhome</td><td>51024ms</td></tr><tr><td>4</td><td>Dashboard</td><td>DOM extraction</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">1 links, 1 headings, 0 tables</td><td>2005ms</td></tr><tr><td>5</td><td>Navigation</td><td>/forgot-password</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">1 headings, 0 tables, 1 inputs</td><td>3712ms</td></tr><tr><td>6</td><td>DP VIE</td><td>Navigate: /dp-vie</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Found at https://dev.valueup.jumpiq.com/dp-vie</td><td>4432ms</td></tr><tr><td>7</td><td>DP VIE</td><td>Extract dealer data</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">0 tables, 0 charts, 0 metrics</td><td>2ms</td></tr><tr><td>8</td><td>DP VIE</td><td>Data discrepancy check</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">No discrepancies</td><td>7ms</td></tr><tr><td>9</td><td>API</td><td>Intercepted endpoints</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">3 calls, 1 unique: GET /next/api/auth/session</td><td>1ms</td></tr><tr><td>10</td><td>API</td><td>No server errors (5xx)</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">All 3 responses < 500</td><td>0ms</td></tr><tr><td>11</td><td>API</td><td>Response consistency re-test</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">1/1 consistent, 0 changed</td><td>436ms</td></tr><tr><td>12</td><td>UI</td><td>No console errors</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">Clean console</td><td>4101ms</td></tr><tr><td>13</td><td>UI</td><td>No horizontal overflow</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">0 overflow</td><td>3ms</td></tr><tr><td>14</td><td>UI</td><td>All images loaded</td><td><span class="badge badge-pass">PASS</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">All images OK</td><td>1ms</td></tr><tr><td>15</td><td>UI</td><td>Accessibility: all inputs labelled</td><td><span class="badge badge-fail">FAIL</span></td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">1 unlabelled inputs</td><td>0ms</td></tr>
+</table>
+<h2>Intercepted APIs (5)</h2><table><tr><th>Method</th><th>Endpoint</th><th>Status</th><th>Preview</th></tr>
+<tr class="api-row"><td>GET</td><td>/next/api/auth/session</td><td>200</td><td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">{}</td></tr>
+</table>
+<h2>Pages Explored (1)</h2><table><tr><th>Path</th><th>Title</th><th>Headings</th><th>Tables</th><th>Inputs</th></tr>
+<tr><td>/forgot-password</td><td>JumpIQ Advisor</td><td>1</td><td>0</td><td>1</td></tr>
+</table>
+<p style="text-align:center;color:#9ca3af;font-size:12px;margin-top:32px">Generated by Ankur QA Automation Suite — Agentic Tester v2.0</p>
+</div></body></html>

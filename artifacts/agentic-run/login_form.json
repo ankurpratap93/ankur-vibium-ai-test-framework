@@ -1,0 +1,17 @@
+[
+  {
+    "type": "text",
+    "name": "",
+    "id": "username"
+  },
+  {
+    "type": "password",
+    "name": "",
+    "id": "password"
+  },
+  {
+    "type": "checkbox",
+    "name": "",
+    "id": ""
+  }
+]
